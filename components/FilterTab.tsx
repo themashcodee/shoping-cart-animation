@@ -11,7 +11,7 @@ const FilterTab = ({}: Props) => {
 	const controls = useAnimation();
 	useEffect(() => {
 		controls.start("animate");
-	}, [controls]);
+	}, []);
 	console.log("rerender");
 
 	return (
