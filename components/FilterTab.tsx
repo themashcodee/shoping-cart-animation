@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Brands } from "database";
-import { nanoid } from "nanoid";
 
 import { motion, useAnimation } from "framer-motion";
 import { AppearX, Stagger } from "animations";
@@ -12,7 +11,6 @@ const FilterTab = ({}: Props) => {
 	useEffect(() => {
 		controls.start("animate");
 	}, []);
-	console.log("rerender");
 
 	return (
 		<article className="flex items-center gap-2 h-16 select-none pl-8 flex-shrink-0">
@@ -24,15 +22,15 @@ const FilterTab = ({}: Props) => {
 				initial="initial"
 				animate={controls}
 				variants={Stagger}
-				className="bg-red-200 flex gap-4 rounded-l-lg w-full overflow-auto brandFilterScrollable px-4"
+				className=" flex gap-4 rounded-l-lg w-full overflow-auto brandFilterScrollable px-4"
 			>
-				{Brands.map((Icon) => (
+				{Brands.map((Icon, i) => (
 					<motion.li
-						key={nanoid()}
+						key={i}
 						variants={AppearX}
 						whileHover={{ backgroundColor: "#ff8a00", color: "#fff" }}
 						whileTap={{ backgroundColor: "#ff8a00", color: "#fff" }}
-						className="flex-shrink-0 bg-[white] w-12 h-12 rounded-2xl p-3"
+						className="opacity-1 flex-shrink-0 bg-[white] w-12 h-12 rounded-2xl p-3"
 					>
 						<Icon />
 					</motion.li>
