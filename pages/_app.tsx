@@ -24,8 +24,6 @@ export const StoreContext = createContext<Context>({
 });
 const { Provider } = StoreContext;
 
-let GlobalMessageTimeout: ReturnType<typeof setTimeout>;
-
 function MyApp({ Component, pageProps }: AppProps) {
 	const [cart, setCart] = useState<Item[]>([]);
 	const [isGlobalMessage, setIsGlobalMessage] = useState<Boolean>(false);
@@ -33,17 +31,21 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const [globalMessageType, setGlobalMessageType] = useState<
 		"WARNING" | "ALERT" | "NOTIFY"
 	>("NOTIFY");
+	const [globalMessageTimeout, setGlobalMessageTimeout] =
+		useState<ReturnType<typeof setTimeout>>();
 
 	const setGlobalMessage = ({ text, type }: GlobalMessageFuncType) => {
-		clearTimeout(GlobalMessageTimeout);
+		globalMessageTimeout && clearTimeout(globalMessageTimeout);
 		setGlobalMessageType(type);
 		setGlobalMessageText(text);
 
-		setIsGlobalMessage(true);
+		!isGlobalMessage && setIsGlobalMessage(true);
 
-		GlobalMessageTimeout = setTimeout(() => {
-			setIsGlobalMessage(false);
-		}, 3000);
+		setGlobalMessageTimeout(
+			setTimeout(() => {
+				setIsGlobalMessage(false);
+			}, 3000)
+		);
 	};
 
 	return (

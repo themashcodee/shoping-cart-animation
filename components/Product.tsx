@@ -24,11 +24,13 @@ const Product = ({ id, image, name, price }: Props) => {
 		const alreadyExistItem = cart.find((item) => item.id === id);
 
 		if (alreadyExistItem) {
-			setGlobalMessage({
+			console.log(alreadyExistItem.quantity);
+			alreadyExistItem.quantity++;
+			console.log(alreadyExistItem.quantity);
+			return setGlobalMessage({
 				type: "NOTIFY",
-				text: `One more ${name} added in the cart`,
+				text: `One more ${alreadyExistItem.name} added in the cart`,
 			});
-			return alreadyExistItem.quantity++;
 		}
 		setCart((prev) => [...prev, newItem]);
 		setGlobalMessage({
@@ -47,7 +49,7 @@ const Product = ({ id, image, name, price }: Props) => {
 			<div className="flex justify-between">
 				<motion.span
 					whileHover={{
-						scale: 1.5,
+						scale: 1.3,
 						backgroundColor: "rgb(239, 68, 68)",
 						color: "#fff",
 					}}
@@ -59,7 +61,7 @@ const Product = ({ id, image, name, price }: Props) => {
 				</motion.span>
 				<motion.span
 					whileHover={{
-						scale: 1.5,
+						scale: 1.3,
 						backgroundColor: "#f08a12",
 						color: "#fff",
 					}}

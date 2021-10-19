@@ -29,7 +29,7 @@ const CartMiniView = (props: Props) => {
 			animate={controls}
 			variants={CartMiniViewAnim}
 			className="
-        fixed bottom-0 left-1/2 h-24 -translate-x-1/2 bg-[#1a191c] w-full max-w-lg rounded-t-xl
+        fixed bottom-0 left-1/2 h-24 -translate-x-1/2 bg-[#1a191c] w-full max-w-lg rounded-t-md
         flex flex-col min-w-[200px]"
 		>
 			<div
@@ -50,17 +50,25 @@ const CartMiniView = (props: Props) => {
 						animate="animate"
 						exit="exit"
 						variants={Stagger}
-						className="h-full flex flex-row-reverse gap-2 items-center Scrollable"
+						className="h-full w-full flex flex-row-reverse gap-2 items-center Scrollable"
 					>
 						{items.map((item) => {
 							return (
 								<motion.div
 									key={item.id}
 									variants={AppearX}
-									className="w-14 h-14 rounded-full
+									className="w-14 h-14 rounded text-xs
                                     flex justify-center items-center p-1
-                                    bg-[#2a282e] flex-shrink-0"
+                                    bg-[#2a282e] flex-shrink-0 relative"
 								>
+									<div
+										className="
+									absolute h-6 w-6 bg-purple-700 rounded-full
+									text-white justify-center flex items-center -left-1 -top-1 z-20
+									"
+									>
+										{item.quantity}
+									</div>
 									<span className="w-full">
 										<Image
 											src={item.image}
