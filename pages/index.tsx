@@ -7,7 +7,7 @@ import Header from "components/Header";
 import FilterTab from "components/FilterTab";
 import Products from "components/Products";
 import CartMiniView from "components/CartMiniView";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface Props {}
 
@@ -22,6 +22,10 @@ const Home: NextPage<Props> = ({}) => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<motion.section
+				key="page"
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 1, backgroundColor: "red" }}
 				className={`
 			w-full max-h-screen 
 			flex flex-col gap-4 pt-8 bg-[#f4f5fc]`}

@@ -3,6 +3,7 @@ import { StoreContext } from "pages/_app";
 import { Item } from "types/Item";
 
 import Image from "next/image";
+import Link from "next/link";
 import Add from "components/icons/Add";
 import Heart from "components/icons/Heart";
 
@@ -72,15 +73,18 @@ const Product = ({ id, image, name, price }: Props) => {
 					<Add />
 				</motion.span>
 			</div>
-			<div className="w-full my-2">
-				<Image
-					src={image}
-					alt=""
-					layout="responsive"
-					width={800}
-					height={400}
-				/>
-			</div>
+
+			<Link href={`/products/${id}`} passHref={true}>
+				<div className="w-full my-2">
+					<Image
+						src={image}
+						alt=""
+						layout="responsive"
+						width={800}
+						height={400}
+					/>
+				</div>
+			</Link>
 			<h2 className="text-center text-[#555555] font-semibold">{name}</h2>
 			<h1 className="text-center text-[#f08a12] text-xl font-semibold">
 				{price}$

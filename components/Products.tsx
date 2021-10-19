@@ -1,18 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Product from "components/Product";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { Stagger } from "animations";
 import { Products as Items } from "database";
 
 interface Props {}
 
 const Products = ({}: Props) => {
-	// const controls = useAnimation();
-	// useEffect(() => {
-	// 	controls.start("animate");
-	// }, []);
-
 	return (
 		<motion.section
 			initial="initial"
