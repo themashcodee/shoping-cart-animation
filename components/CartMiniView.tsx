@@ -29,7 +29,7 @@ const CartMiniView = (props: Props) => {
 			animate={controls}
 			variants={CartMiniViewAnim}
 			className="
-        fixed bottom-0 left-1/2 h-24 -translate-x-1/2 bg-[#1a191c] w-full max-w-lg rounded-t-md
+        fixed bottom-0 left-1/2 h-24 -translate-x-1/2 bg-[#1a191c] w-full max-w-[640px] sm:rounded-t-3xl
         flex flex-col min-w-[200px]"
 		>
 			<div
