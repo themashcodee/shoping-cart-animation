@@ -39,7 +39,7 @@ const Product: NextPage = () => {
 						transition: {
 							duration: 0.4,
 							type: "tween",
-							ease: "easeInOut",
+							ease: [1.0, 0.0, 0.685, 0.46],
 							delay: 1,
 						},
 					}}

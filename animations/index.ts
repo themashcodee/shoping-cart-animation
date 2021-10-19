@@ -50,13 +50,10 @@ export const GlobalMessageAnim: Variants = {
 	},
 	animate: {
 		opacity: 1,
-		x: "-50%",
 		y: 0,
 	},
 	exit: {
 		opacity: 0,
-		y: "-100%",
-		x: "-50%",
 	},
 };
 export const CartMiniViewAnim: Variants = {

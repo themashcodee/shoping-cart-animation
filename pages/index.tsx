@@ -22,10 +22,9 @@ const Home: NextPage<Props> = ({}) => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<motion.section
-				key="page"
-				initial={{ opacity: 0 }}
+				initial={{ opacity: 1 }}
 				animate={{ opacity: 1 }}
-				exit={{ opacity: 1, backgroundColor: "red" }}
+				exit={{ opacity: 0 }}
 				className={`
 			w-full max-h-screen 
 			flex flex-col gap-4 pt-8 bg-[#f4f5fc]`}

@@ -5,7 +5,7 @@ import { GlobalMessageAnim } from "animations";
 enum MessageTypeColors {
 	WARNING = "bg-red-400",
 	ALERT = "bg-yellow-400",
-	NOTIFY = "bg-green-400",
+	NOTIFY = "bg-blue-400",
 }
 
 type Props = {
@@ -14,15 +14,10 @@ type Props = {
 };
 
 const GlobalMessage = ({ text, type }: Props) => {
-	const controls = useAnimation();
-	useEffect(() => {
-		controls.start("animate");
-	});
-
 	return (
 		<motion.div
 			initial="initial"
-			animate={controls}
+			animate="animate"
 			exit="exit"
 			variants={GlobalMessageAnim}
 			className={`

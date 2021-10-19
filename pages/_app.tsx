@@ -24,7 +24,7 @@ export const StoreContext = createContext<Context>({
 });
 const { Provider } = StoreContext;
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
 	const [cart, setCart] = useState<Item[]>([]);
 	const [isGlobalMessage, setIsGlobalMessage] = useState<Boolean>(false);
 	const [globalMessageText, setGlobalMessageText] = useState<string>("");
@@ -52,15 +52,18 @@ function MyApp({ Component, pageProps }: AppProps) {
 		<Provider value={{ cart, setCart, setGlobalMessage }}>
 			<AnimateSharedLayout>
 				<AnimatePresence exitBeforeEnter>
-					<>
+					<React.Fragment key={router.route}>
 						<Component {...pageProps} />
-						{isGlobalMessage && (
-							<GlobalMessage
-								text={globalMessageText}
-								type={globalMessageType}
-							/>
-						)}
-					</>
+						<AnimatePresence exitBeforeEnter>
+							{isGlobalMessage && (
+								<GlobalMessage
+									key={"GlobalMessage"}
+									text={globalMessageText}
+									type={globalMessageType}
+								/>
+							)}
+						</AnimatePresence>
+					</React.Fragment>
 				</AnimatePresence>
 			</AnimateSharedLayout>
 		</Provider>
