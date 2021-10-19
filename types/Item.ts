@@ -5,3 +5,8 @@ export type Item = {
 	price: number;
 	quantity: number;
 };
+
+export type GlobalMessageFuncType = {
+	text: string;
+	type: "WARNING" | "ALERT" | "NOTIFY";
+};

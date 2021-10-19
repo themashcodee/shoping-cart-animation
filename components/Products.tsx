@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Product from "@/components/Product";
+import Product from "components/Product";
 
 import { motion, useAnimation } from "framer-motion";
 import { Stagger } from "animations";
@@ -8,16 +8,16 @@ import { Products as Items } from "database";
 interface Props {}
 
 const Products = ({}: Props) => {
-	const controls = useAnimation();
-	useEffect(() => {
-		controls.start("animate");
-	}, []);
+	// const controls = useAnimation();
+	// useEffect(() => {
+	// 	controls.start("animate");
+	// }, []);
 
 	return (
 		<motion.section
 			initial="initial"
-			custom={1}
-			animate={controls}
+			custom={{ delay: 1 }}
+			animate="animate"
 			variants={Stagger}
 			className="
 			grid gap-4 
@@ -25,7 +25,8 @@ const Products = ({}: Props) => {
 			xsm:grid-cols-2 
 			sm:grid-cols-3 
 			md:grid-cols-4 
-			overflow-x-auto brandFilterScrollable px-8 pt-4 pb-8"
+			px-8 pt-4 pb-8
+			Scrollable"
 		>
 			{Items.map((item) => {
 				return (

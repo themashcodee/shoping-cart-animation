@@ -1,28 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Brands } from "database";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { AppearX, Stagger } from "animations";
 
 interface Props {}
 
 const FilterTab = ({}: Props) => {
-	const controls = useAnimation();
-	useEffect(() => {
-		controls.start("animate");
-	}, []);
-
 	return (
 		<article className="flex items-center gap-2 h-16 select-none pl-8 flex-shrink-0">
-			<div className="rounded-2xl flex-shrink-0 shadow-lg bg-green-300 text-white flex items-center px-4 py-3 gap-2 cursor-pointer">
+			<div className="rounded-2xl flex-shrink-0 shadow-lg bg-green-400 text-white flex items-center px-4 py-3 gap-2 cursor-pointer">
 				<span>Brands</span>
 			</div>
 
 			<motion.ul
 				initial="initial"
-				animate={controls}
+				animate="animate"
 				variants={Stagger}
-				className=" flex gap-4 rounded-l-lg w-full overflow-auto brandFilterScrollable px-4"
+				className="flex gap-4 rounded-l-lg w-full Scrollable px-4"
 			>
 				{Brands.map((Icon, i) => (
 					<motion.li
