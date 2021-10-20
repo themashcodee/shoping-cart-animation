@@ -1,9 +1,37 @@
+import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
+
 import { motion } from "framer-motion";
-import { AppearX } from "animations";
+import { AppearX, AppearY, Stagger } from "animations";
+
+import Header from "components/ProductPage/Header";
+import ImageCont from "components/ProductPage/ImageCont";
+import Cart from "components/icons/Cart";
+
+import { Products } from "database";
+
+type Item = {
+	id: number;
+	image: string;
+	name: string;
+	price: number;
+};
 
 const Product: NextPage = () => {
+	const router = useRouter();
+	const [product, setProduct] = useState<Item>();
+
+	useEffect(() => {
+		if (router) {
+			const productFound = Products.find(
+				(item) => item.id === +router.query.product!
+			);
+			if (productFound) setProduct(productFound);
+		}
+	}, [router]);
+
 	return (
 		<>
 			<Head>
@@ -26,11 +54,22 @@ const Product: NextPage = () => {
 						ease: [1.0, 0.0, 0.685, 0.46],
 					},
 				}}
+				exit={{ opacity: 0 }}
 				className={`
 			w-full h-screen max-h-screen 
-			flex flex-col gap-4 pt-8 bg-[#aaa6d6] overflow-hidden`}
+			flex flex-col pt-8 bg-[#aaa6d6] overflow-hidden lg:hidden`}
 			>
-				<div className="w-full h-[40%]"></div>
+				<motion.div
+					initial="initial"
+					custom={{ delay: 2 }}
+					animate="animate"
+					variants={Stagger}
+					className="w-full h-[45%] flex flex-col"
+				>
+					<Header />
+					<ImageCont url={product ? product.image : ""} />
+				</motion.div>
+
 				<motion.div
 					initial={{ opacity: 0, y: "100%" }}
 					animate={{
@@ -41,11 +80,100 @@ const Product: NextPage = () => {
 							type: "tween",
 							ease: [1.0, 0.0, 0.685, 0.46],
 							delay: 1,
+							delayChildren: 2,
+							when: "beforeChildren",
 						},
 					}}
-					className="bg-[#f4f5fc] rounded-t-3xl h-[60%] w-full"
-				></motion.div>
+					className="bg-[#f4f5fc] rounded-t-3xl h-[55%] w-full py-8"
+				>
+					<motion.aside
+						custom={{ delay: 2 }}
+						initial="initial"
+						animate="animate"
+						variants={Stagger}
+						className="flex flex-col gap-4"
+					>
+						<motion.h1
+							variants={AppearY}
+							className="font-semibold text-xl px-8"
+						>
+							{product && product.name}
+						</motion.h1>
+
+						{/* SIZE TAB */}
+						<motion.article variants={AppearY} className="flex flex-col">
+							<p className="px-8 text-xs">Size</p>
+							<div className="flex Scrollable gap-4 py-1 px-8">
+								{[6, 7, 8, 9].map((size) => {
+									return (
+										<motion.div
+											whileHover={{
+												scale: 1.2,
+												backgroundColor: "#f08a12",
+												color: "#fff",
+											}}
+											whileTap={{ scale: 0.9, backgroundColor: "#f08a12" }}
+											key={size}
+											className="w-9 h-9 rounded-xl bg-white shadow-sm flex justify-center items-center flex-shrink-0
+											cursor-pointer"
+										>
+											{size}
+										</motion.div>
+									);
+								})}
+							</div>
+						</motion.article>
+
+						{/* COLOR TAB */}
+						<motion.article variants={AppearY} className="flex flex-col">
+							<p className="px-8 text-xs">Color</p>
+							<div className="flex Scrollable gap-4 py-1 px-8">
+								{["#ffe26d", "#0f469f", "#d6ff50"].map((clr) => {
+									return (
+										<motion.div
+											whileHover={{
+												scale: 1.2,
+											}}
+											whileTap={{ scale: 0.9 }}
+											key={clr}
+											className="w-10 h-10 rounded-xl bg-white flex justify-center items-center flex-shrink-0
+											cursor-pointer"
+										>
+											<div
+												style={{ backgroundColor: clr }}
+												className={"rounded-full w-6 h-6"}
+											></div>
+										</motion.div>
+									);
+								})}
+							</div>
+						</motion.article>
+
+						{/* ADD TO CART BTN */}
+						<motion.div
+							variants={AppearY}
+							className="flex justify-between px-3 bg-[#f08a12] rounded-xl mx-8 h-12 text-white items-center cursor-pointer select-none"
+						>
+							<span className="font-semibold">{product && product.price}$</span>
+							<motion.span
+								whileHover={{ scale: 1.2, x: "-10%" }}
+								whileTap={{ scale: 0.9, x: 0 }}
+								className="flex gap-1 bg-white text-[#222] py-1 px-2 rounded-md text-sm items-center"
+							>
+								<span className="w-4 h-4">
+									<Cart />
+								</span>
+								<span>Add to Cart</span>
+							</motion.span>
+						</motion.div>
+					</motion.aside>
+				</motion.div>
 			</motion.section>
+
+			<section className="hidden lg:flex justify-center items-center p-8 text-3xl h-screen">
+				This website doesnt designed for big screens, try in a small screen
+				(hint: below than 1024px)
+			</section>
 		</>
 	);
 };

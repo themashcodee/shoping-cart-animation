@@ -25,12 +25,10 @@ const Product = ({ id, image, name, price }: Props) => {
 		const alreadyExistItem = cart.find((item) => item.id === id);
 
 		if (alreadyExistItem) {
-			console.log(alreadyExistItem.quantity);
 			alreadyExistItem.quantity++;
-			console.log(alreadyExistItem.quantity);
 			return setGlobalMessage({
 				type: "NOTIFY",
-				text: `One more ${alreadyExistItem.name} added in the cart`,
+				text: `One more ${name} added in the cart`,
 			});
 		}
 		setCart((prev) => [...prev, newItem]);
@@ -74,7 +72,7 @@ const Product = ({ id, image, name, price }: Props) => {
 				</motion.span>
 			</div>
 
-			<Link href={`/products/${id}`} passHref={true}>
+			<Link href={`/products/${id}`} passHref={true} replace={true}>
 				<div className="w-full my-2">
 					<Image
 						src={image}
